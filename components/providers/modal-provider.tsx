@@ -3,6 +3,8 @@ import FolderModal from '../modals/folder-modal'
 
 export default function ModalProvider() {
   return (
-    <FolderModal />
+    <div className='fixed'>
+      <FolderModal />
+    </div>
   )
 }
