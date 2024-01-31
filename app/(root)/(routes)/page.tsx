@@ -5,19 +5,18 @@ import { auth } from '@clerk/nextjs'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const getData = async (uid: string, type: 'files' | 'folders') => {
-	let types: any[] = []
+	let data: any[] = []
 	const q = query(
 		collection(db, type),
 		where('uid', '==', uid),
 		where('isArchive', '==', false)
 	)
 	const querySnapshot = await getDocs(q)
-
 	querySnapshot.forEach(doc => {
-		types.push({ ...doc.data(), id: doc.id })
+		data.push({ ...doc.data(), id: doc.id })
 	})
 
-	return types
+	return data
 }
 
 const HomePage = async () => {

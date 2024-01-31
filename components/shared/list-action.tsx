@@ -12,12 +12,11 @@ import { Separator } from '../ui/separator'
 
 interface ListActionProps {
 	item: IFolderAndFile
-	onStartEditing?: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const ListAction = ({ item }: ListActionProps) => {
 	return (
-		<div className='flex items-center space-x-2'>
+		<div className='flex items-center space-x-1'>
 			<div
 				role='button'
 				className='p-2 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-full transition opacity-0 group-hover:opacity-100'
@@ -31,15 +30,15 @@ const ListAction = ({ item }: ListActionProps) => {
 				<Star className='w-4 h-4 opacity-50' />
 			</div>
 			<Popover>
-				<PopoverTrigger className='flex items-center' asChild>
+				<PopoverTrigger className='flex justify-start' asChild>
 					<div
 						role='button'
 						className='p-2 hover:bg-secondary rounded-full transition'
 					>
-						<MoreVertical className='w-4 h-4 opacity-50' />
+						<MoreVertical className='h-4 w-4' />
 					</div>
 				</PopoverTrigger>
-				<PopoverContent>
+				<PopoverContent className='px-0 py-2'>
 					<div
 						className='flex items-center hover:bg-secondary transition py-2 px-4 space-x-2 text-sm'
 						role='button'

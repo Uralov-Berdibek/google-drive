@@ -1,11 +1,5 @@
-import {
-	Table,
-	TableBody,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from '@/components/ui/table'
 import { IFolderAndFile } from '@/types'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '../ui/table'
 import ListItem from './list-item'
 
 interface ListsProps {
@@ -13,21 +7,21 @@ interface ListsProps {
 	files: IFolderAndFile[]
 }
 
-const Lists = ({ folders, files }: ListsProps) => {
+const Lists = ({ files, folders }: ListsProps) => {
 	return (
 		<Table className='mt-4'>
 			<TableHeader>
 				<TableRow>
 					<TableHead>Name</TableHead>
-					<TableHead>owner</TableHead>
-					<TableHead>Created At</TableHead>
-					<TableHead>File Size</TableHead>
+					<TableHead>Owner</TableHead>
+					<TableHead>Created at</TableHead>
+					<TableHead>File size</TableHead>
 					<TableHead className='text-right'>Actions</TableHead>
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{[...folders, ...files].map(items => (
-					<ListItem key={items.id} item={items} />
+				{[...folders, ...files].map(folder => (
+					<ListItem key={folder.id} item={folder} />
 				))}
 			</TableBody>
 		</Table>
