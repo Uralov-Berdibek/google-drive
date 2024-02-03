@@ -4,6 +4,7 @@ import { db } from '@/lib/firebase'
 import { byteConverter } from '@/lib/utils'
 import { IFolderAndFile } from '@/types'
 import { useUser } from '@clerk/nextjs'
+import { format } from 'date-fns'
 import { doc, setDoc } from 'firebase/firestore'
 import { File, Folder, Minus, Save, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -116,7 +117,9 @@ const ListItem = ({ item }: ListItemProps) => {
 				</Avatar>
 				<span className='opacity-75'>me</span>
 			</TableCell>
-			<TableCell>12.12.2012</TableCell>
+			<TableCell>
+				{format(new Date(item.timestamp.seconds * 1000), 'MMM dd, yyyy')}
+			</TableCell>
 			<TableCell>{item.size ? byteConverter(item.size) : <Minus />}</TableCell>
 			<TableCell className='flex justify-end group items-center space-x-2'>
 				<ListAction item={item} onStartEditing={onStartEditing} />

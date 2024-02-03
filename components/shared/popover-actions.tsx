@@ -42,7 +42,7 @@ export default function PopoverActions() {
 			type: file.type,
 			size: file.size,
 			uid: user?.id,
-			timesTamp: serverTimestamp(),
+			timestamp: serverTimestamp(),
 			isArchive: false,
 		}).then(docs => {
 			const refs = ref(storage, `files/${docs.id}/image`)
