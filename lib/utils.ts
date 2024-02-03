@@ -20,6 +20,7 @@ export function byteConverter(bytes: number, decimals?: number, only?: string) {
 
 	return resp
 }
+
 export function defineImageAndFile(types: string) {
 	const type = types.split('/')[1]
 
