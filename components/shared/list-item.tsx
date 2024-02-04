@@ -65,7 +65,10 @@ const ListItem = ({ item }: ListItemProps) => {
 	}
 
 	return (
-		<TableRow className='group cursor-pointer'>
+		<TableRow
+			className='group cursor-pointer'
+			onClick={item.size ? () => {} : () => push(`/document/${item.id}`)}
+		>
 			<TableCell className='font-medium'>
 				{!isEditing ? (
 					<div

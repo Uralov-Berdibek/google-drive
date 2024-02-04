@@ -9,7 +9,7 @@ import {
 	Trash,
 	UserPlus,
 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 import { Separator } from '../ui/separator'
@@ -21,11 +21,17 @@ interface ListActionProps {
 
 const ListAction = ({ item, onStartEditing }: ListActionProps) => {
 	const { refresh } = useRouter()
+	const { documentId } = useParams()
+
+	const folderId = documentId as string
 	const type = item.size ? 'files' : 'folders'
+	const ref = documentId
+		? doc(db, 'folders', folderId, 'files', item.id)
+		: doc(db, type, item.id)
 
 	const onDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		e.stopPropagation()
-		const ref = doc(db, type, item.id)
+
 		const promise = setDoc(ref, {
 			...item,
 			isArchive: true,
@@ -42,7 +48,6 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
 	const onAddStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		e.stopPropagation()
 
-		const ref = doc(db, type, item.id)
 		const promise = setDoc(ref, {
 			...item,
 			isStar: true,
@@ -58,7 +63,6 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
 	const onRemoveStar = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		e.stopPropagation()
 
-		const ref = doc(db, type, item.id)
 		const promise = setDoc(ref, {
 			...item,
 			isStar: false,
@@ -82,12 +86,12 @@ const ListAction = ({ item, onStartEditing }: ListActionProps) => {
 
 	const onShare = () => {
 		if (!item.size) {
-			toast.error("You can't. share a folder")
+			toast.error("You can't share a folder")
 			return
 		}
 
 		navigator.clipboard.writeText(item.image)
-		toast.success('Link copied to clipboard')
+		toast.success('Link copied to clipboard!')
 	}
 
 	return (
