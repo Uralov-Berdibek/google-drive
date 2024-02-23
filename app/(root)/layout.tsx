@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/shared/navbar'
+import Navbar from '@/components/shared/navbar'
 import Sidebar from '@/components/shared/sidebar'
 import React from 'react'
 

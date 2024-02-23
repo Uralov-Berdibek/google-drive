@@ -1,4 +1,13 @@
 import Header from '@/components/shared/header'
+import ListItem from '@/components/shared/list-item'
+import Storage from '@/components/shared/storage'
+import {
+	Table,
+	TableBody,
+	TableHead,
+	TableHeader,
+	TableRow,
+} from '@/components/ui/table'
 import { db } from '@/lib/firebase'
 import { auth } from '@clerk/nextjs'
 import { collection, getDocs, query, where } from 'firebase/firestore'
@@ -26,6 +35,27 @@ const CloudPage = async () => {
 	return (
 		<>
 			<Header label='Storage' />
+			<Storage totalSize={JSON.parse(JSON.stringify(totalSize))} />
+
+			<Table className='mt-4'>
+				<TableHeader>
+					<TableRow>
+						<TableHead>Name</TableHead>
+						<TableHead>Owner</TableHead>
+						<TableHead>Created at</TableHead>
+						<TableHead>File size</TableHead>
+						<TableHead className='text-right'>Actions</TableHead>
+					</TableRow>
+				</TableHeader>
+				<TableBody>
+					{files.map(folder => (
+						<ListItem
+							key={folder.id}
+							item={JSON.parse(JSON.stringify(folder))}
+						/>
+					))}
+				</TableBody>
+			</Table>
 		</>
 	)
 }

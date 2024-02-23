@@ -1,11 +1,12 @@
 import { auth } from '@clerk/nextjs'
-import { HelpCircle, Settings } from 'lucide-react'
+import { Settings } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { Avatar, AvatarFallback } from '../ui/avatar'
 import { ModeToggle } from './mode-toggle'
-import { UserBox } from './user-box'
+import UserBox from './user-box'
 
-export const Navbar = () => {
+const Navbar = () => {
 	const { userId } = auth()
 
 	return (
@@ -13,28 +14,33 @@ export const Navbar = () => {
 			<div className='flex items-center justify-between py-3 px-6'>
 				<Link href={'/'}>
 					<div className='flex items-center'>
-						<Image src={'/logo.svg'} alt='logo' width={40} height={40} />
-						<span className='pl-2 tesxt-[22px] opacity-75'>Drive</span>
+						<Image src={'/logo.svg'} alt='Logo' width={40} height={40} />
+						<span className='pl-2 text-[22px] opacity-75'>Drive</span>
 					</div>
 				</Link>
 
 				<div className='flex items-center space-x-2'>
 					<ModeToggle />
-					<div
-						className='p-2 hover:bg-secondary rounded-full transition'
-						role='button'
-					>
-						<HelpCircle className='w-5 h-5' />
-					</div>
-					<div
-						className='p-2 hover:bg-secondary rounded-full transition'
-						role='button'
-					>
-						<Settings className='w-5 h-5' />
-					</div>
-					{userId ? <UserBox /> : null}
+
+					<Link href={'/settings'}>
+						<div
+							className='p-2 hover:bg-secondary rounded-full transition'
+							role='button'
+						>
+							<Settings className='w-5 h-5' />
+						</div>
+					</Link>
+					{userId ? (
+						<UserBox />
+					) : (
+						<Avatar className='cursor-pointer'>
+							<AvatarFallback>SB</AvatarFallback>
+						</Avatar>
+					)}
 				</div>
 			</div>
 		</div>
 	)
 }
+
+export default Navbar

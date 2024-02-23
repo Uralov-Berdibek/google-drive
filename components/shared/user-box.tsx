@@ -1,6 +1,7 @@
 'use client'
 
 import { useClerk, useUser } from '@clerk/nextjs'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import {
@@ -11,10 +12,11 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 
-export const UserBox = () => {
+const UserBox = () => {
 	const { user } = useUser()
 	const { signOut } = useClerk()
 	const router = useRouter()
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -48,16 +50,27 @@ export const UserBox = () => {
 					</div>
 
 					<DropdownMenuSeparator />
-
-					<DropdownMenuItem
-						asChild
-						className='w-full cursor-pointer text-muted-foreground'
-						onClick={() => signOut(() => router.push('/sign-in'))}
-					>
-						<div role='button'>Log out</div>
-					</DropdownMenuItem>
+					<div>
+						<Link href={'/settings'}>
+							<DropdownMenuItem
+								asChild
+								className='w-full cursor-pointer text-muted-foreground'
+							>
+								<div role='button'>Account</div>
+							</DropdownMenuItem>
+						</Link>
+						<DropdownMenuItem
+							asChild
+							className='w-full cursor-pointer text-muted-foreground'
+							onClick={() => signOut(() => router.push('/sign-in'))}
+						>
+							<div role='button'>Log out</div>
+						</DropdownMenuItem>
+					</div>
 				</div>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)
 }
+
+export default UserBox
