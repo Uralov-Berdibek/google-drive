@@ -21,7 +21,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<ClerkProvider>
+		<ClerkProvider frontendApi={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 			<html lang='en' suppressHydrationWarning>
 				<body className={inter.className}>
 					<ThemeProvider
