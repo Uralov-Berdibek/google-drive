@@ -23,10 +23,7 @@ export default function RootLayout({
 }) {
 	const router = useRouter()
 	return (
-		<ClerkProvider
-			frontendApi={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-			navigate={to => router.push(to)}
-		>
+		<ClerkProvider frontendApi={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
 			<html lang='en' suppressHydrationWarning>
 				<body className={inter.className}>
 					<ThemeProvider
