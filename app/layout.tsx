@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/components/providers/theme-providers'
 import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { useRouter } from 'next/router'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -20,8 +21,12 @@ export default function RootLayout({
 }: {
 	children: React.ReactNode
 }) {
+	const router = useRouter()
 	return (
-		<ClerkProvider frontendApi={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}>
+		<ClerkProvider
+			frontendApi={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+			navigate={to => router.push(to)}
+		>
 			<html lang='en' suppressHydrationWarning>
 				<body className={inter.className}>
 					<ThemeProvider
